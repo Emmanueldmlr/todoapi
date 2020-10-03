@@ -63,7 +63,7 @@ class AuthenticationController extends Controller
             'email' => 'bail|required',
             'password' => 'bail|required|min:6|alpha_num',
         ]);
-        /*try {*/
+        try {
             if ($validator->fails()){
                 $data = [
                     'success' => false,
@@ -88,14 +88,14 @@ class AuthenticationController extends Controller
                 'error' => 'Invalid Login Details'
             ];
             return response($data,401);
-//        }
-//        catch (\Exception $exception){
-//            $data = [
-//                'success' => false,
-//                'error' => 'Action Could not be Performed'
-//            ];
-//            return response($data, 500);
-//        }
+        }
+        catch (\Exception $exception){
+            $data = [
+                'success' => false,
+                'error' => 'Action Could not be Performed'
+            ];
+            return response($data, 500);
+        }
     }
 
     public function logout(){
