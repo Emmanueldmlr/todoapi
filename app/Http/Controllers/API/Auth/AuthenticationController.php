@@ -99,12 +99,21 @@ class AuthenticationController extends Controller
     }
 
     public function logout(){
-        Auth::user()->token()->revoke();
-        $data = [
-            'success' => false,
-            'message' => "Logout Successfull"
-        ];
-        return response($data, 200);
+        try{
+            Auth::user()->token()->revoke();
+            $data = [
+                'success' => true,
+                'message' => "Logout Successfull"
+            ];
+            return response($data, 200);
+        }
+        catch (\Exception $exception){
+            $data = [
+                'success' => false,
+                'error' => 'Action Could not be Performed'
+            ];
+            return response($data, 500);
+        }
     }
 
     public function login(){
